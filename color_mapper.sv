@@ -16,7 +16,7 @@
 module  color_mapper ( input CLK,
 							input [9:0] DrawX, DrawY, PickX, PickY,
 								input [2:0] currScreen,
-                       output logic [7:0]  Red, Green, Blue );
+                       output logic [3:0]  Red, Green, Blue );
 
 	  
 	  
@@ -26,11 +26,20 @@ module  color_mapper ( input CLK,
 	 logic linearBall;
 	 assign ballSize = 8;
 	 
+	 assign Red = thisRed;
+	 assign Green = thisGreen;
+	 assign Blue = thisBlue;
+	 
+	 logic [3:0] thisRed, thisBlue, thisGreen;
+	 
+	 logic [3:0] palRed, palGreen, palBlue;	 
 logic pick1_on; // x=310 and y =240 for pick 1 center. R = 100
 
 drawPickOne firstPick (.CLK(CLK),
 							.centerX(310), .centerY(240),.radius(100), .PickY(PickY), .drawX(DrawX),.drawY(DrawY),
                        .showPick(pick1_on));
+							  
+colorPalette palette(.drawX(DrawX), .drawY(DrawY), .Clk(CLK), .red(palRed), .green(palGreen), .blue(palBlue));
 
 always_comb
 begin		
@@ -49,9 +58,9 @@ begin
 	
 	3'b000:
 		begin
-			Red = 8'h7f - DrawX[9:3];
-			Green = 8'h00;
-			Blue = 8'h00;
+			thisRed = 4'h7 - DrawX[9:3];
+			thisGreen = 4'h0;
+			thisBlue = 4'h0;
 		end
 	
 	
@@ -59,32 +68,32 @@ begin
 		begin
 				  if ((linearBall == 1'b1) | (pick1_on == 1'b1)) 
 					  begin 
-							Red = 8'h00;
-							Green = 8'h7f;
-							Blue = 8'h00;
+							thisRed = 4'h0;
+							thisGreen = 4'h7;
+							thisBlue = 4'h0;
 					  end       
 				  else 
 					  begin 
-							Red = 8'h70;
-							Green = 8'h00;
-							Blue = 8'h00;
+							thisRed = palRed;
+							thisGreen = palGreen;
+							thisBlue = palBlue;
 					  end
 					  
     end
 	 
 	 3'b010:
 		begin
-				  if ((linearBall == 1'b1)) 
+				  if ((linearBall == 1'b1) | (pick1_on == 1'b1)) 
 					  begin 
-							Red = 8'h00;
-							Green = 8'h7f;
-							Blue = 8'h00;
+							thisRed = 4'h0;
+							thisGreen = 4'h7;
+							thisBlue = 4'h0;
 					  end       
 				  else 
 					  begin 
-							Red = 8'h11 - DrawY[9:3];
-							Green = 8'h00;
-							Blue = 8'h00;
+							thisRed = 4'h0;
+							thisGreen = 4'h6;
+							thisBlue = 4'h0;
 					  end      
     end
 	 
@@ -94,16 +103,16 @@ begin
 	 
 	 3'b111:
 	 begin
-			Red = 8'h00;
-			Green = 8'h7f - DrawX[9:3];
-			Blue = 8'h00;
+			thisRed = 4'h0;
+			thisGreen = 4'h7 - DrawX[9:3];
+			thisBlue = 4'h4;
 	end
 	 
 	 default:
 	 begin
-	 Red = 8'h00;
-	 Green = 8'h00;
-	 Blue = 8'h77;
+	 thisRed = 4'h0;
+	 thisGreen = 4'h0;
+	 thisBlue = 4'h7;
 	 end
 	 
  endcase

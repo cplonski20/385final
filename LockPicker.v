@@ -163,6 +163,8 @@ reg [11:0] adc_sample_data /* synthesis noprune */;
 reg [12:0] vol /* synthesis noprune */;
 
 
+
+
 always @ (posedge sys_clk)
 begin
 	if (response_valid)
@@ -266,12 +268,12 @@ color_mapper COLOR_MAPPER( .CLK(MAX10_CLK1_50),
 
 
 wire Reset_h, vssig, blank, sync, VGA_Clk;
-wire [7:0] Red, Blue, Green;
+wire [3:0] Red, Blue, Green;
 wire [9:0] drawxsig, drawysig, pickxsig, pickysig;
 
-assign VGA_R = Red[7:4];
-assign VGA_B = Blue[7:4];
-assign VGA_G = Green[7:4];
+assign VGA_R = Red;
+assign VGA_B = Blue;
+assign VGA_G = Green;
 assign thisDir = dir;
 
 wire levelEasyDone;

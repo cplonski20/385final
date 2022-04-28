@@ -1,0 +1,1 @@
+module colorPalette(input logic [9:0] drawX, drawY, output logic [3:0] red, green, blue)
