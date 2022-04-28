@@ -1,0 +1,16 @@
+module myRandStateMedium(input logic Clk, input logic enable, output logic [3:0] myState);
+
+
+logic [3:0] currRand = 0;
+
+always_ff @ (posedge Clk)
+begin
+if(~enable)
+begin
+currRand <= currRand + 1;
+end
+end
+
+assign myState = currRand;
+
+endmodule

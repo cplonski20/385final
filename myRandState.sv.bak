@@ -1,0 +1,8 @@
+module myRandState(input logic Clk, output logic [3:0] myState);
+
+always_ff @ (posedge Clk)
+begin
+myState <= myState + 1
+end
+
+endmodule

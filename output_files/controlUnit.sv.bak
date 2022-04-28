@@ -1,0 +1,265 @@
+module controlUnit(input logic reset,
+						output logic [3:0] screen);
+						
+
+	enum logic [4:0] {levelEasy}   curr_state, next_state; 
+
+	//updates flip flop, current state is the only one
+    always_ff @ (posedge Clk)  
+    begin
+        if (reset_ld_clr)
+            curr_state <= A;
+        else 
+            curr_state <= next_state;
+    end
+	 
+	 always_comb
+    begin
+    
+		  next_state  = curr_state;	//required because I haven't enumerated all possibilities below
+        unique case (curr_state) 
+
+            A :  next_state = B;
+				
+            B :    if(run)
+								next_state = prerun;	
+						else if(reset_ld_clr)
+							next_state = A;
+								
+				prerun: next_state = C;
+				
+            C :    next_state = D;
+            D :    next_state = E;
+            E :    next_state = F;
+				F :    next_state = G;
+				G :    next_state = H;
+				H :    next_state = I;
+				I :    next_state = J;
+				J :    next_state = K;
+				K :    next_state = L;
+				L :    next_state = M;
+				M :    next_state = N;
+				N :    next_state = O;
+				O :    next_state = P;
+				P :    next_state = Q;
+				Q :    next_state = R;
+            R :    next_state = holder;
+				holder :    if (~run) 
+                       next_state = B;
+							  
+        endcase
+		  
+		  
+		  case (curr_state) 
+		  A: //initial state
+	         begin
+                Clr_ld = 1'b1;
+					 Shift = 1'b0;
+					 Add = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b1;
+
+				end
+   	   B: //hold state
+		      begin
+                Clr_ld = 1'b0;
+					 Shift = 1'b0;
+					 Add = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+		      end
+			prerun: //prerun
+		      begin
+                Clr_ld = 1'b0;
+					 Shift = 1'b0;
+					 Add = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b1;
+		      end
+				C: //first add state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b0;
+					 //Add = 1'b1;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+					 if(Mval)
+					 Add = 1'b1;
+					 else
+					 Add = 1'b0;
+					 
+				end
+				D: //first shift state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b1;
+					 Add = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+				end
+				E: //second add state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b0;
+					 //Add = 1'b1;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+					 if(Mval)
+					 Add = 1'b1;
+					 else
+					 Add = 1'b0;
+				end
+				F: //second shift state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b1;
+					 Add = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+				end
+				G: //3 add state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b0;
+					 //Add = 1'b1;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+					 if(Mval)
+					 Add = 1'b1;
+					 else
+					 Add = 1'b0;
+				end
+				H: //3 shift state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b1;
+					 Add = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+				end
+				I: //4 add state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b0;
+					 //Add = 1'b1;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+					 if(Mval)
+					 Add = 1'b1;
+					 else
+					 Add = 1'b0;
+				end
+				J: //4 shift state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b1;
+					 Add = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+				end
+				K: //5 add state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b0;
+					 //Add = 1'b1;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+					 if(Mval)
+					 Add = 1'b1;
+					 else
+					 Add = 1'b0;
+				end
+				L: //5 shift state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b1;
+					 Add = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+				end
+				M: //6 add state
+				begin
+//					Clr_ld = 41'b0;
+//					 Shift = 1'b0;
+//					 Add = 1'b1;
+//					 Sub = 1'b0;
+//					 ClearA = 1'b0;
+
+					Clr_ld = 1'b0;
+					 Shift = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+					 if(Mval)
+					 Add = 1'b1;
+					 else
+					 Add = 1'b0;
+				end
+				N: //6 shift state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b1;
+					 Add = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+				end
+				O: //7 add state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b0;
+					 //Add = 1'b1;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+					 if(Mval)
+					 Add = 1'b1;
+					 else
+					 Add = 1'b0;
+				end
+				P: //7 shift state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b1;
+					 Add = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+				end
+				Q: //8 sub/add state
+				begin
+					 Clr_ld = 1'b0;
+					 Shift = 1'b0;
+					 //Add = 1'b1;
+					 Add = 1'b0;
+					 ClearA = 1'b0;
+					 if(Mval)
+					 Sub = 1'b1;
+					 else
+					 Sub = 1'b0;
+				end
+				R: //8 shift state
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b1;
+					 Add = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+				end
+				holder: //holder
+				begin
+					Clr_ld = 1'b0;
+					 Shift = 1'b0;
+					 Add = 1'b0;
+					 Sub = 1'b0;
+					 ClearA = 1'b0;
+				end
+				
+//	   	   default:  //default case, can also have default assignments for Ld_A and Ld_B before case
+//		      begin 
+//                Clr_ld = 1'b1;
+//					 Shift = 1'b0;
+//					 Add = 1'b0;
+//					 Sub = 1'b0;
+//					 ClearA = 1'b0;
+//		      end
+        endcase
+    end
+
+endmodule

@@ -1,0 +1,47 @@
+module  rotational_motion ( input CLK,
+							input [9:0] DrawY, radius, PickY,
+								input [2:0] currScreen,
+                       output logic [9:0]  RotX, RotY );
+
+	  
+	  
+	 int DistX, DistY, XSize, YSize;
+	 assign DistX = DrawX - PickX;
+    assign DistY = DrawY - PickY;
+	 assign XSize = 20;
+	 assign YSize = 5;
+	 logic pick_on;
+	 
+
+//ONCE you get rotational motion make general module that takes value and ouputs x and y 
+//Cos and sin look up table
+//may be good to change CLK to @change of PickY 
+
+logic [6:0] cosADDR;
+logic [9:0] cosDATA;
+logic [6:0] sinADDR;
+logic [9:0] sinDATA;
+TrigLUT cosmod(.address(cosADDR),.clock(CLK),.q(cosDATA));
+TrigLUT sinmod(.address(sinADDR),.clock(CLK),.q(sinDATA));
+
+assign cosADDR = (((PickY-32)/5)*4) % 91; 
+assign sinADDR =  ((91 - ((PickY-32)/5))*4) % 91;
+
+logic rotate_on;
+int rotateX, rotateY;// CENTER x =310, y = 240, Pick radius 100
+int rotateDistX, rotateDistY; // used to draw ball we rotate
+
+always_comb
+begin
+	
+	 rotateX = 310 + (100*cosDATA)/1000; // center + r*cos
+	 rotateX = 310 + (100*cosDATA)/1000; // center + r*cos
+	 rotateY = 240 + (100*sinDATA)/1000; // center + r*sin
+	 rotateDistX = rotateX - DrawX;
+	 rotateDistY = rotateY - DrawY;
+end
+
+
+
+ 
+endmodule
