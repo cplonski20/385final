@@ -215,7 +215,7 @@ refer to the applicable agreement for further details.
 		(text "we_n" (rect 213 379 450 768)(font "Arial" (color 0 0 0)))
 		(text "sdrampll_c1" (rect 353 187 772 387)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "clk" (rect 337 211 692 432)(font "Arial" (color 0 0 0)))
-		(text " adc_qsys " (rect 515 400 1090 810)(font "Arial" ))
+		(text " system " (rect 525 400 1098 810)(font "Arial" ))
 		(line (pt 208 32)(pt 352 32)(line_width 1))
 		(line (pt 352 32)(pt 352 400)(line_width 1))
 		(line (pt 208 400)(pt 352 400)(line_width 1))

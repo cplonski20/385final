@@ -9,5 +9,5 @@ Info (10281): Verilog HDL Declaration information at adc_qsys_mm_interconnect_0_
 Warning (10273): Verilog HDL warning at altera_modular_adc_control_fsm.v(716): extended using "x" or "z" File: C:/Users/jason/OneDrive/Documents/gitLockPicker/385final/adc_qsys/synthesis/submodules/altera_modular_adc_control_fsm.v Line: 716
 Info (10281): Verilog HDL Declaration information at LockPicker.v(51): object "HEX0" differs only in case from object "hex0" in the same scope File: C:/Users/jason/OneDrive/Documents/gitLockPicker/385final/LockPicker.v Line: 51
 Warning (10273): Verilog HDL warning at HexDriver.sv(24): extended using "x" or "z" File: C:/Users/jason/OneDrive/Documents/gitLockPicker/385final/HexDriver.sv Line: 24
-Warning (10268): Verilog HDL information at pick.sv(19): always construct contains both blocking and non-blocking assignments File: C:/Users/jason/OneDrive/Documents/gitLockPicker/385final/pick.sv Line: 19
+Warning (10268): Verilog HDL information at pick.sv(18): always construct contains both blocking and non-blocking assignments File: C:/Users/jason/OneDrive/Documents/gitLockPicker/385final/pick.sv Line: 18
 Warning (10268): Verilog HDL information at LRpick.sv(19): always construct contains both blocking and non-blocking assignments File: C:/Users/jason/OneDrive/Documents/gitLockPicker/385final/output_files/LRpick.sv Line: 19

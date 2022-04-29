@@ -1,4 +1,4 @@
-module  pick ( input Reset, frame_clk,
+module  pick ( input Reset, frame_clk, pickMode,
 					input [2:0] dir,
                output [9:0]  pickX, pickY);
     
@@ -14,10 +14,9 @@ module  pick ( input Reset, frame_clk,
     parameter [9:0] pick_Y_Step=1; 
 	 // Step size on the Y axis
 	 
-
    
-    always_ff @ (posedge Reset or posedge frame_clk )
-    begin: Move_pick
+    always_ff @ (posedge Reset or posedge frame_clk)
+    begin
         if (Reset)  // Asynchronous Reset
         begin 
             pick_Y_Motion <= 10'd0; //Ball_Y_Step;

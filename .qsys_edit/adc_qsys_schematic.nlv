@@ -1,22 +1,35 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
-preplace inst adc_qsys.altpll_sys -pg 1 -lvl 2 -y 30
-preplace inst adc_qsys.modular_adc_0 -pg 1 -lvl 3 -y 110
+preplace inst adc_qsys.nios2_gen2_0.cpu -pg 1
+preplace inst adc_qsys.altpll_sys -pg 1 -lvl 2 -y 240
+preplace inst adc_qsys.sdram -pg 1 -lvl 4 -y 280
+preplace inst adc_qsys.nios2_gen2_0.clock_bridge -pg 1
+preplace inst adc_qsys.modular_adc_0 -pg 1 -lvl 3 -y 360
+preplace inst adc_qsys.i2c_0 -pg 1 -lvl 2 -y 440
 preplace inst adc_qsys -pg 1 -lvl 1 -y 40 -regy -20
 preplace inst adc_qsys.modular_adc_0.control_internal -pg 1
 preplace inst adc_qsys.modular_adc_0.cb_inst -pg 1
-preplace inst adc_qsys.clk_50 -pg 1 -lvl 1 -y 50
+preplace inst adc_qsys.nios2_gen2_0.reset_bridge -pg 1
+preplace inst adc_qsys.clk_50 -pg 1 -lvl 1 -y 300
 preplace inst adc_qsys.modular_adc_0.rst_inst -pg 1
-preplace inst adc_qsys.clock_bridge_sys -pg 1 -lvl 3 -y 250
-preplace netloc EXPORT<net_container>adc_qsys</net_container>(SLAVE)adc_qsys.reset,(SLAVE)clk_50.clk_in_reset) 1 0 1 NJ
-preplace netloc POINT_TO_POINT<net_container>adc_qsys</net_container>(SLAVE)modular_adc_0.adc_pll_locked,(SLAVE)altpll_sys.locked_conduit) 1 1 2 370 160 NJ
-preplace netloc EXPORT<net_container>adc_qsys</net_container>(SLAVE)adc_qsys.modular_adc_0_command,(SLAVE)modular_adc_0.command) 1 0 3 NJ 180 NJ 180 NJ
-preplace netloc EXPORT<net_container>adc_qsys</net_container>(SLAVE)adc_qsys.clk,(SLAVE)clk_50.clk_in) 1 0 1 NJ
-preplace netloc EXPORT<net_container>adc_qsys</net_container>(MASTER)modular_adc_0.response,(MASTER)adc_qsys.modular_adc_0_response) 1 3 1 NJ
-preplace netloc POINT_TO_POINT<net_container>adc_qsys</net_container>(MASTER)clk_50.clk,(SLAVE)altpll_sys.inclk_interface) 1 1 1 N
-preplace netloc EXPORT<net_container>adc_qsys</net_container>(MASTER)adc_qsys.clock_bridge_sys_out_clk,(MASTER)clock_bridge_sys.out_clk) 1 3 1 NJ
-preplace netloc FAN_OUT<net_container>adc_qsys</net_container>(SLAVE)modular_adc_0.clock,(SLAVE)clock_bridge_sys.in_clk,(MASTER)altpll_sys.c0) 1 2 1 610
-preplace netloc POINT_TO_POINT<net_container>adc_qsys</net_container>(SLAVE)modular_adc_0.adc_pll_clock,(MASTER)altpll_sys.c1) 1 2 1 590
-preplace netloc FAN_OUT<net_container>adc_qsys</net_container>(MASTER)clk_50.clk_reset,(SLAVE)altpll_sys.inclk_interface_reset,(SLAVE)modular_adc_0.reset_sink) 1 1 2 350 200 NJ
-levelinfo -pg 1 0 140 1030
-levelinfo -hier adc_qsys 150 180 400 720 850
+preplace inst adc_qsys.nios2_gen2_0 -pg 1 -lvl 2 -y 90
+preplace inst adc_qsys.clock_bridge_sys -pg 1 -lvl 3 -y 500
+preplace inst adc_qsys.sysid_qsys_0 -pg 1 -lvl 3 -y 110
+preplace inst adc_qsys.sdramPLL -pg 1 -lvl 3 -y 190
+preplace inst adc_qsys.onchip_memory2_0 -pg 1 -lvl 3 -y 30
+preplace netloc EXPORT<net_container>adc_qsys</net_container>(SLAVE)clk_50.clk_in_reset,(SLAVE)adc_qsys.reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>adc_qsys</net_container>(MASTER)adc_qsys.modular_adc_0_response,(MASTER)modular_adc_0.response) 1 3 2 NJ 410 NJ
+preplace netloc POINT_TO_POINT<net_container>adc_qsys</net_container>(SLAVE)modular_adc_0.adc_pll_locked,(SLAVE)altpll_sys.locked_conduit) 1 1 2 410 390 NJ
+preplace netloc FAN_OUT<net_container>adc_qsys</net_container>(MASTER)clk_50.clk,(SLAVE)sysid_qsys_0.clk,(SLAVE)onchip_memory2_0.clk1,(SLAVE)i2c_0.clock,(SLAVE)altpll_sys.inclk_interface,(SLAVE)nios2_gen2_0.clk,(SLAVE)sdramPLL.inclk_interface) 1 1 2 370 30 890
+preplace netloc EXPORT<net_container>adc_qsys</net_container>(SLAVE)sdram.wire,(SLAVE)adc_qsys.sdram_wire) 1 0 4 NJ 290 NJ 370 NJ 320 NJ
+preplace netloc EXPORT<net_container>adc_qsys</net_container>(SLAVE)modular_adc_0.command,(SLAVE)adc_qsys.modular_adc_0_command) 1 0 3 NJ 410 NJ 410 NJ
+preplace netloc POINT_TO_POINT<net_container>adc_qsys</net_container>(SLAVE)sdram.clk,(MASTER)sdramPLL.c0) 1 3 1 1250
+preplace netloc EXPORT<net_container>adc_qsys</net_container>(MASTER)adc_qsys.sdrampll_c1,(MASTER)sdramPLL.c1) 1 3 2 NJ 220 NJ
+preplace netloc INTERCONNECT<net_container>adc_qsys</net_container>(SLAVE)sdramPLL.pll_slave,(SLAVE)sdram.s1,(SLAVE)sysid_qsys_0.control_slave,(SLAVE)onchip_memory2_0.s1,(MASTER)nios2_gen2_0.data_master,(SLAVE)nios2_gen2_0.debug_mem_slave,(MASTER)nios2_gen2_0.instruction_master) 1 1 3 410 50 850 280 1230
+preplace netloc EXPORT<net_container>adc_qsys</net_container>(MASTER)adc_qsys.clock_bridge_sys_out_clk,(MASTER)clock_bridge_sys.out_clk) 1 3 2 NJ 510 NJ
+preplace netloc EXPORT<net_container>adc_qsys</net_container>(SLAVE)clk_50.clk_in,(SLAVE)adc_qsys.clk) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>adc_qsys</net_container>(SLAVE)modular_adc_0.clock,(SLAVE)clock_bridge_sys.in_clk,(MASTER)altpll_sys.c0) 1 2 1 790
+preplace netloc POINT_TO_POINT<net_container>adc_qsys</net_container>(SLAVE)modular_adc_0.adc_pll_clock,(MASTER)altpll_sys.c1) 1 2 1 830
+preplace netloc INTERCONNECT<net_container>adc_qsys</net_container>(SLAVE)modular_adc_0.reset_sink,(SLAVE)sdram.reset,(SLAVE)i2c_0.reset_sink,(SLAVE)onchip_memory2_0.reset1,(MASTER)clk_50.clk_reset,(SLAVE)altpll_sys.inclk_interface_reset,(SLAVE)sdramPLL.inclk_interface_reset,(SLAVE)sysid_qsys_0.reset,(MASTER)nios2_gen2_0.debug_reset_request,(SLAVE)nios2_gen2_0.reset) 1 1 3 390 430 870 300 NJ
+levelinfo -pg 1 0 140 1540
+levelinfo -hier adc_qsys 150 180 530 1000 1280 1360

@@ -49,6 +49,14 @@
          type = "int";
       }
    }
+   element i2c_0
+   {
+      datum _sortIndex
+      {
+         value = "9";
+         type = "int";
+      }
+   }
    element modular_adc_0
    {
       datum _sortIndex
@@ -358,6 +366,11 @@
   <parameter name="DERIVED_CLOCK_RATE" value="25000000" />
   <parameter name="EXPLICIT_CLOCK_RATE" value="0" />
   <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
+ </module>
+ <module name="i2c_0" kind="altera_avalon_i2c" version="18.1" enabled="0">
+  <parameter name="FIFO_DEPTH" value="4" />
+  <parameter name="USE_AV_ST" value="0" />
+  <parameter name="clockRate" value="50000000" />
  </module>
  <module
    name="modular_adc_0"
@@ -1084,6 +1097,7 @@
    version="18.1"
    start="clk_50.clk"
    end="onchip_memory2_0.clk1" />
+ <connection kind="clock" version="18.1" start="clk_50.clk" end="i2c_0.clock" />
  <connection
    kind="clock"
    version="18.1"
@@ -1140,6 +1154,11 @@
    version="18.1"
    start="clk_50.clk_reset"
    end="modular_adc_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="i2c_0.reset_sink" />
  <connection
    kind="reset"
    version="18.1"

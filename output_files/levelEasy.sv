@@ -1,6 +1,6 @@
-module  levelEasy ( input logic        levelEasyStart, Clk, openner, 
-							input logic [9:0] pickY,
-                       output logic levelEasyDone, output logic [3:0] HEXOUT);
+module  levelEasy ( input logic        levelEasyStart, Clk, openner,
+							input logic [9:0] pickY, pickLRx,
+                       output logic levelEasyDone, close, output logic [3:0] HEXOUT);
 							  
 							  
 							  
@@ -10,8 +10,14 @@ module  levelEasy ( input logic        levelEasyStart, Clk, openner,
 			//assign currLevel = 3'b001;
 			logic found;
 			
-			logic [3:0] correctState;
+			
+			logic [3:0] correctState, closeLower, closeAbove;
 			assign HEXOUT = correctState;
+			
+			assign closeLower = correctState - 1;
+			assign closeAbove = correctState + 1;
+			
+			
 			//implement random generation as input to this module to generate correct state in future!!!!
 			
 			enum logic [3:0] {zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen}   curr_state; 
@@ -59,7 +65,9 @@ end
 always_comb
 		 begin
 		 
-		 levelEasyDone = (curr_state == correctState) & ~openner;
+		 levelEasyDone = ((curr_state == correctState) & ~openner & (pickLRx <= 500));
+		 close = ((curr_state == closeLower) | (curr_state == closeAbove));
+		 
 		 
 		 
 	 end

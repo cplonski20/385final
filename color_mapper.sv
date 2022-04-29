@@ -13,18 +13,23 @@
 //-------------------------------------------------------------------------
 
 
-module  color_mapper ( input CLK,
-							input [9:0] DrawX, DrawY, PickX, PickY,
+module  color_mapper ( input CLK, VGA_clk, blank, close,
+							input [9:0] DrawX, DrawY, PickX, PickY, pickLRx, pickLRy,
 								input [2:0] currScreen,
                        output logic [3:0]  Red, Green, Blue );
 
 	  
 	  
-	 int DistX, DistY, ballSize;
+	 int DistX, DistY, ballSize, LRDistX, LRDistY, closeX, closeY;
 	 assign DistX = DrawX - PickX;
     assign DistY = DrawY - PickY;
-	 logic linearBall;
+	 assign LRDistX = DrawX - pickLRx;
+	 assign LRDistY = DrawY - pickLRy;
+	 logic linearBall, LRBall, closeBall;
 	 assign ballSize = 8;
+	 assign closeX = DrawX - 500;
+	 assign closeY = DrawY - 100;
+	 
 	 
 	 assign Red = thisRed;
 	 assign Green = thisGreen;
@@ -33,11 +38,15 @@ module  color_mapper ( input CLK,
 	 logic [3:0] thisRed, thisBlue, thisGreen;
 	 
 	 logic [3:0] palRed, palGreen, palBlue;	 
-logic pick1_on; // x=310 and y =240 for pick 1 center. R = 100
+    logic pick1_on, pick2_on; // x=310 and y =240 for pick 1 center. R = 100
 
 drawPickOne firstPick (.CLK(CLK),
-							.centerX(310), .centerY(240),.radius(100), .PickY(PickY), .drawX(DrawX),.drawY(DrawY),
+							.centerX(320), .centerY(240),.radius(100), .PickY(PickY), .drawX(DrawX),.drawY(DrawY),
                        .showPick(pick1_on));
+							  
+drawPickTwo secondPick (.CLK(CLK),
+							.centerX(320), .centerY(240),.radius(100), .PickX(pickLRx), .drawX(DrawX),.drawY(DrawY),
+                       .showPick2(pick2_on));
 							  
 colorPalette palette(.drawX(DrawX), .drawY(DrawY), .Clk(CLK), .red(palRed), .green(palGreen), .blue(palBlue));
 
@@ -47,36 +56,57 @@ begin
             linearBall = 1'b1;
         else 
             linearBall = 1'b0;
+				
+		  if ((LRDistX*LRDistX + LRDistY*LRDistY) <= (ballSize * ballSize)) 
+            LRBall = 1'b1;
+        else 
+            LRBall = 1'b0;
+				
+				
+		  if(((closeX*closeX + closeY*closeY) <= (ballSize * ballSize)) & close)
+				closeBall = 1'b1;
+		  else
+				closeBall = 1'b0;
+				
 		  
 end
-	 
-always_comb
-begin
 
+	 
+always_ff @ (posedge VGA_clk)
+begin
+if(blank)
+begin
 	
    case(currScreen) 
 	
 	3'b000:
 		begin
-			thisRed = 4'h7 - DrawX[9:3];
-			thisGreen = 4'h0;
-			thisBlue = 4'h0;
+			thisRed <= 4'h7 - DrawX[9:3];
+			thisGreen <= 4'h0;
+			thisBlue <= 4'h0;
 		end
 	
 	
    3'b001:
 		begin
-				  if ((linearBall == 1'b1) | (pick1_on == 1'b1)) 
+				  if ((linearBall == 1'b1) | (pick1_on == 1'b1) | (LRBall == 1'b1) | (closeBall == 1'b1)) 
 					  begin 
-							thisRed = 4'h0;
-							thisGreen = 4'h7;
-							thisBlue = 4'h0;
-					  end       
+							thisRed <= 4'h0;
+							thisGreen <= 4'h7;
+							thisBlue <= 4'h0;
+					  end 
+					 
+				  else if(pick2_on == 1'b1)
+						begin
+							thisRed <= 4'h7;
+							thisGreen <= 4'h0;
+							thisBlue <= 4'h0;
+						end
 				  else 
 					  begin 
-							thisRed = palRed;
-							thisGreen = palGreen;
-							thisBlue = palBlue;
+							thisRed <= palRed;
+							thisGreen <= palGreen;
+							thisBlue <= palBlue;
 					  end
 					  
     end
@@ -85,15 +115,15 @@ begin
 		begin
 				  if ((linearBall == 1'b1) | (pick1_on == 1'b1)) 
 					  begin 
-							thisRed = 4'h0;
-							thisGreen = 4'h7;
-							thisBlue = 4'h0;
+							thisRed <= 4'h0;
+							thisGreen <= 4'h7;
+							thisBlue <= 4'h0;
 					  end       
 				  else 
 					  begin 
-							thisRed = 4'h0;
-							thisGreen = 4'h6;
-							thisBlue = 4'h0;
+							thisRed <= 4'h0;
+							thisGreen <= 4'h6;
+							thisBlue <= 4'h0;
 					  end      
     end
 	 
@@ -103,20 +133,21 @@ begin
 	 
 	 3'b111:
 	 begin
-			thisRed = 4'h0;
-			thisGreen = 4'h7 - DrawX[9:3];
-			thisBlue = 4'h4;
+			thisRed <= 4'h0;
+			thisGreen <= 4'h7 - DrawX[9:3];
+			thisBlue <= 4'h4;
 	end
 	 
 	 default:
 	 begin
-	 thisRed = 4'h0;
-	 thisGreen = 4'h0;
-	 thisBlue = 4'h7;
+	 thisRed <= 4'h0;
+	 thisGreen <= 4'h0;
+	 thisBlue <= 4'h7;
 	 end
 	 
  endcase
  
  end
+end
  
 endmodule

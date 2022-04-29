@@ -260,10 +260,19 @@ vga_controller vga_ctrl(
 								.DrawX(drawxsig), 
 								.DrawY(drawysig) );
 pick Pick(
-			.Reset(Reset_h | SW[9]), .frame_clk(VGA_VS), .dir(dir), .pickX(pickxsig), .pickY(pickysig));
+			.Reset(Reset_h | SW[9]), .pickMode(pickMode), .frame_clk(VGA_VS),
+			.dir(dir), .pickX(pickxsig), .pickY(pickysig));
 			
-color_mapper COLOR_MAPPER( .CLK(MAX10_CLK1_50),
-				.PickX(pickxsig), .PickY(pickysig), .DrawX(drawxsig), .DrawY(drawysig), .currScreen(currScreen),
+			
+LRpick LRpick(
+.Reset(Reset_h | SW[9]), .frame_clk(VGA_VS),
+ .pickMode(pickMode), .LRdir(LRdir), .pickLRx(pickLRx), .pickLRy(pickLRy));			
+			
+			
+			
+			
+color_mapper COLOR_MAPPER( .CLK(MAX10_CLK1_50), .VGA_clk(VGA_clk), .blank(blank), .pickLRx(pickLRx), .pickLRy(pickLRy),
+				.PickX(pickxsig), .PickY(pickysig), .DrawX(drawxsig), .DrawY(drawysig), .currScreen(currScreen), .close(close),
 				.Red(Red), .Green(Green), .Blue(Blue) );
 
 
@@ -284,9 +293,11 @@ wire levelMedStart;
 
 wire [3:0] coolbot, coolbotstorage;
 
-wire pickMode;
+wire pickMode, close;
 
 assign pickMode = SW[0];
+
+wire [9:0] pickLRx, pickLRy;
 
 
 
@@ -294,7 +305,7 @@ assign pickMode = SW[0];
 
 controlUnit control (.Clk(sys_clk), .reset(SW[9]), .start(SW[8]), .levelEasyDone(levelEasyDone), .levelMedDone(levelMedDone), .screen(currScreen), .levelEasyStart(levelEasyStart), .levelMedStart(levelMedStart));
 
-levelEasy levelEasy( .levelEasyStart(levelEasyStart), .Clk(sys_clk), .openner(KEY[1]), .pickY(pickysig), .levelEasyDone(levelEasyDone), .HEXOUT(coolbot));
+levelEasy levelEasy( .levelEasyStart(levelEasyStart), .Clk(sys_clk), .openner(KEY[1]), .pickY(pickysig), .pickLRx(pickLRx), .close(close), .levelEasyDone(levelEasyDone), .HEXOUT(coolbot));
 
 levelMedium levelMedium(.levelMedStart(levelMedStart), .Clk(sys_clk), .openner(KEY[1]), .pickY(pickysig), .levelMedDone(levelMedDone), .HEXOUT(coolbotstorage));
 

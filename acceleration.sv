@@ -7,8 +7,16 @@ module acceleration(input logic sys_clk, pickMode, input logic [12:0] vol, outpu
 
 always_comb
 begin
+
 		//LRdir = 0;
-		if(vol >= 2000 & vol <= 3000)
+		
+		
+		if(pickMode == 1)
+		begin
+		dir = 0;
+		end
+		
+		else if(vol >= 2000 & vol <= 3000)
 		begin
 			dir = 1;
 		end
@@ -31,7 +39,13 @@ begin
 
 	
 		//dir = 0;
-		if(vol >= 2000 & vol <= 3000)
+		
+		
+		if(pickMode == 0)
+		begin
+		LRdir = 0;
+		end
+		else if(vol >= 2000 & vol <= 3000)
 		begin
 			LRdir = 1;
 		end
