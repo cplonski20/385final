@@ -1,4 +1,4 @@
-module controlUnit(input logic Clk, reset, levelEasyDone, levelMedDone, start,
+module controlUnit(input logic Clk, reset, levelEasyDone, levelMedDone, start, input logic [2:0] guesses,
 						output logic [2:0] screen,
 						output logic levelEasyStart, levelMedStart);
 						
@@ -10,6 +10,8 @@ module controlUnit(input logic Clk, reset, levelEasyDone, levelMedDone, start,
     begin
         if (reset)
             curr_state <= mainMenu;
+		  if(guesses >2)
+				curr_state <=endScreen;
         else 
             curr_state <= next_state;
     end

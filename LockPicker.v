@@ -299,13 +299,13 @@ assign pickMode = SW[0];
 
 wire [9:0] pickLRx, pickLRy;
 
+wire [2:0] guesses;
 
 
 
+controlUnit control (.Clk(sys_clk), .reset(SW[9]), .start(SW[8]), .levelEasyDone(levelEasyDone), .levelMedDone(levelMedDone), .screen(currScreen), .levelEasyStart(levelEasyStart), .levelMedStart(levelMedStart), .guesses(guesses));
 
-controlUnit control (.Clk(sys_clk), .reset(SW[9]), .start(SW[8]), .levelEasyDone(levelEasyDone), .levelMedDone(levelMedDone), .screen(currScreen), .levelEasyStart(levelEasyStart), .levelMedStart(levelMedStart));
-
-levelEasy levelEasy( .levelEasyStart(levelEasyStart), .Clk(sys_clk), .openner(KEY[1]), .pickY(pickysig), .pickLRx(pickLRx), .close(close), .levelEasyDone(levelEasyDone), .HEXOUT(coolbot));
+levelEasy levelEasy( .levelEasyStart(levelEasyStart), .Clk(sys_clk), .openner(KEY[1]), .pickY(pickysig), .pickLRx(pickLRx), .close(close), .levelEasyDone(levelEasyDone), .HEXOUT(coolbot), .guesses(guesses));
 
 levelMedium levelMedium(.levelMedStart(levelMedStart), .Clk(sys_clk), .openner(KEY[1]), .pickY(pickysig), .levelMedDone(levelMedDone), .HEXOUT(coolbotstorage));
 

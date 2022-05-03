@@ -20,37 +20,55 @@ logic [9:0] phase;
 always_comb
 begin
 case(phaseShift)
-2'b00: phase = 0;
-2'b01: phase = 10'd112;
-2'b10: phase = 10'd336;
-default: phase = 0;
+2'b00: 
+begin
+cosADDR = ((PickX-488) -1);
+sinADDR = ((PickX-488) + 112 - 1);
+end
+2'b01:
+begin
+cosADDR = PickX-488+112 - 1;
+sinADDR = PickX-488 + 1;
+end
+
+2'b10:
+begin
+cosADDR = PickX-488+112 - 1;
+sinADDR = PickX-488 - 1;
+end
+
+default:
+begin
+cosADDR = ((PickX-488)) -1;
+sinADDR = ((PickX-488) + 112 - 1);
+end
+
 endcase
 end
 
 TrigLUT cosmod(.address(cosADDR),.clock(CLK),.q(cosDATA));
 TrigLUT sinmod(.address(sinADDR),.clock(CLK),.q(sinDATA));
 
-assign cosADDR = ((PickX-488) + phase) % 448; //start at 112 which is 90 degrres cuz pickx start at 600
-assign sinADDR =  (((PickX-488) + 112) + phase) % 448;
+//assign cosADDR = (PickX-488); //start at 112 which is 90 degrres cuz pickx start at 600
+//assign sinADDR =  ((PickX-488) + 112);
 
 always_comb
 begin
-	 if(phaseShift == 2'b00)
-	 begin
-	 	 RotX = centerX - (radius*cosDATA)/1000; // center + r*cos
-		 RotY = centerY + (radius*sinDATA)/1000; // center + r*sin
-	 end
 	 if(phaseShift == 2'b01)
-	 begin
-	 	 RotX = centerX - (radius*cosDATA)/1000; // center + r*cos
-		 RotY = centerY - (radius*sinDATA)/1000; // center + r*sin
-	 end
-	 if(phaseShift == 2'b10)
 	 begin
 	 	 RotX = centerX + (radius*cosDATA)/1000; // center + r*cos
 		 RotY = centerY + (radius*sinDATA)/1000; // center + r*sin
 	 end
-	 
+	 else if(phaseShift == 2'b10)
+	 begin
+	 	 RotX = centerX - (radius*cosDATA)/1000; // center + r*cos
+		 RotY = centerY - (radius*sinDATA)/1000; // center + r*sin
+	 end
+	 else if(PickX >= 486 && PickX <= 600)
+	 begin
+	 	 RotX = centerX - (radius*cosDATA)/1000; // center + r*cos
+		 RotY = centerY + (radius*sinDATA)/1000; // center + r*sin
+	 end
 	 else
 	 begin
 	 	 RotX = centerX + radius;

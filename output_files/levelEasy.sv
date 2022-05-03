@@ -1,6 +1,6 @@
 module  levelEasy ( input logic        levelEasyStart, Clk, openner,
 							input logic [9:0] pickY, pickLRx,
-                       output logic levelEasyDone, close, output logic [3:0] HEXOUT);
+                       output logic levelEasyDone, close, output logic [3:0] HEXOUT, output logic [2:0] guesses);
 							  
 							  
 							  
@@ -9,6 +9,8 @@ module  levelEasy ( input logic        levelEasyStart, Clk, openner,
 		
 			//assign currLevel = 3'b001;
 			logic found;
+			//logic [2:0] guesses;
+			//assign guesses = 0;
 			
 			
 			logic [3:0] correctState, closeLower, closeAbove;
@@ -68,7 +70,8 @@ always_comb
 		 levelEasyDone = ((curr_state == correctState) & ~openner & (pickLRx <= 500));
 		 close = ((curr_state == closeLower) | (curr_state == closeAbove));
 		 
-		 
+//		 if(~openner & (curr_state != correctState))
+//				guesses = guesses + 1;
 		 
 	 end
 				  							  

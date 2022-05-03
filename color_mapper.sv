@@ -38,7 +38,7 @@ module  color_mapper ( input CLK, VGA_clk, blank, close,
 	 logic [3:0] thisRed, thisBlue, thisGreen;
 	 
 	 logic [3:0] palRed, palGreen, palBlue;	 
-    logic pick1_on, pick2_on; // x=310 and y =240 for pick 1 center. R = 100
+    logic pick1_on, pick2_on, pick3_on; // x=310 and y =240 for pick 1 center. R = 100
 
 drawPickOne firstPick (.CLK(CLK),
 							.centerX(320), .centerY(240),.radius(100), .PickY(PickY), .drawX(DrawX),.drawY(DrawY),
@@ -46,7 +46,7 @@ drawPickOne firstPick (.CLK(CLK),
 							  
 drawPickTwo secondPick (.CLK(CLK),
 							.centerX(320), .centerY(240),.radius(100), .PickX(pickLRx), .drawX(DrawX),.drawY(DrawY),
-                       .showPick2(pick2_on));
+                       .showPick2(pick2_on), .showPick3(pick3_on));
 							  
 colorPalette palette(.drawX(DrawX), .drawY(DrawY), .Clk(CLK), .red(palRed), .green(palGreen), .blue(palBlue));
 
@@ -92,16 +92,23 @@ begin
 				  if ((linearBall == 1'b1) | (pick1_on == 1'b1) | (LRBall == 1'b1) | (closeBall == 1'b1)) 
 					  begin 
 							thisRed <= 4'h0;
-							thisGreen <= 4'h7;
+							thisGreen <= 4'h0;
 							thisBlue <= 4'h0;
 					  end 
+				  else if(pick3_on == 1'b1)
+						begin
+							thisRed <= 4'hD;
+							thisGreen <= 4'hD;
+							thisBlue <= 4'hD;
+						end
 					 
 				  else if(pick2_on == 1'b1)
 						begin
-							thisRed <= 4'h7;
-							thisGreen <= 4'h0;
+							thisRed <= 4'hF;
+							thisGreen <= 4'hD;
 							thisBlue <= 4'h0;
 						end
+				  
 				  else 
 					  begin 
 							thisRed <= palRed;
@@ -133,9 +140,9 @@ begin
 	 
 	 3'b111:
 	 begin
-			thisRed <= 4'h0;
-			thisGreen <= 4'h7 - DrawX[9:3];
-			thisBlue <= 4'h4;
+			thisRed <= 4'hf;
+			thisGreen <= 4'h0;
+			thisBlue <= 4'h0;
 	end
 	 
 	 default:
