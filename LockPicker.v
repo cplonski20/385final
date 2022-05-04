@@ -272,8 +272,8 @@ LRpick LRpick(
 			
 			
 color_mapper COLOR_MAPPER( .CLK(MAX10_CLK1_50), .VGA_clk(VGA_clk), .blank(blank), .pickLRx(pickLRx), .pickLRy(pickLRy),
-				.PickX(pickxsig), .PickY(pickysig), .DrawX(drawxsig), .DrawY(drawysig), .currScreen(currScreen), .close(close),
-				.Red(Red), .Green(Green), .Blue(Blue) );
+				.PickX(pickxsig), .PickY(pickysig), .DrawX(drawxsig), .DrawY(drawysig), .currScreen(currScreen), .closeEasy(closeEasy), .closeMedium(closeMedium),
+				.Red(Red), .Green(Green), .Blue(Blue) ,.guessesEasy(guessesEasy), .guessesMedium(guessesMedium));
 
 
 wire Reset_h, vssig, blank, sync, VGA_Clk;
@@ -293,20 +293,20 @@ wire levelMedStart;
 
 wire [3:0] coolbot, coolbotstorage;
 
-wire pickMode, close;
+wire pickMode, closeEasy, closeMedium;
 
 assign pickMode = SW[0];
 
 wire [9:0] pickLRx, pickLRy;
 
-wire [2:0] guesses;
+wire [2:0] guessesEasy, guessesMedium;
 
 
 
-controlUnit control (.Clk(sys_clk), .reset(SW[9]), .start(SW[8]), .levelEasyDone(levelEasyDone), .levelMedDone(levelMedDone), .screen(currScreen), .levelEasyStart(levelEasyStart), .levelMedStart(levelMedStart), .guesses(guesses));
+controlUnit control (.Clk(sys_clk), .reset(SW[9]), .start(SW[8]), .levelEasyDone(levelEasyDone), .levelMedDone(levelMedDone), .screen(currScreen), .levelEasyStart(levelEasyStart), .levelMedStart(levelMedStart), .guessesEasy(guessesEasy), .guessesMedium(guessesMedium));
 
-levelEasy levelEasy( .levelEasyStart(levelEasyStart), .Clk(sys_clk), .openner(KEY[1]), .pickY(pickysig), .pickLRx(pickLRx), .close(close), .levelEasyDone(levelEasyDone), .HEXOUT(coolbot), .guesses(guesses));
+levelEasy levelEasy( .levelEasyStart(levelEasyStart), .Clk(sys_clk), .openner(KEY[1]), .pickY(pickysig), .pickLRx(pickLRx), .close(closeEasy), .levelEasyDone(levelEasyDone), .HEXOUT(coolbot), .guesses(guessesEasy), .reset(SW[9]));
 
-levelMedium levelMedium(.levelMedStart(levelMedStart), .Clk(sys_clk), .openner(KEY[1]), .pickY(pickysig), .levelMedDone(levelMedDone), .HEXOUT(coolbotstorage));
+levelMedium levelMedium(.levelMedStart(levelMedStart), .Clk(sys_clk), .openner(KEY[1]), .pickY(pickysig), .pickLRx(pickLRx), .close(closeMedium), .levelMedDone(levelMedDone), .HEXOUT(coolbotstorage), .guesses(guessesMedium), .reset(SW[9]));
 
 endmodule

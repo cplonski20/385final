@@ -1,4 +1,4 @@
-module  levelEasy ( input logic        levelEasyStart, Clk, openner,
+module  levelEasy ( input logic        levelEasyStart, Clk, openner, reset,
 							input logic [9:0] pickY, pickLRx,
                        output logic levelEasyDone, close, output logic [3:0] HEXOUT, output logic [2:0] guesses);
 							  
@@ -9,15 +9,20 @@ module  levelEasy ( input logic        levelEasyStart, Clk, openner,
 		
 			//assign currLevel = 3'b001;
 			logic found;
-			//logic [2:0] guesses;
-			//assign guesses = 0;
+			logic [2:0] guessesEasy;
+			initial guessesEasy = 3'b000;
+			
+			//logic guesses = 
 			
 			
 			logic [3:0] correctState, closeLower, closeAbove;
-			assign HEXOUT = correctState;
+			assign HEXOUT = guesses;
 			
 			assign closeLower = correctState - 1;
 			assign closeAbove = correctState + 1;
+			
+			logic [15:0] guessChecker; 
+			initial guessChecker = 16'h0000;
 			
 			
 			//implement random generation as input to this module to generate correct state in future!!!!
@@ -70,9 +75,37 @@ always_comb
 		 levelEasyDone = ((curr_state == correctState) & ~openner & (pickLRx <= 500));
 		 close = ((curr_state == closeLower) | (curr_state == closeAbove));
 		 
-//		 if(~openner & (curr_state != correctState))
-//				guesses = guesses + 1;
 		 
-	 end
+//		 if(~openner & (curr_state != correctState))
+//		 guesses = guesses + 1;
+//		 
+//		 else
+//		 guesses = guesses + 0;
+		 
+		 
+		 //guesses = (~openner & (curr_state != correctState));
+		 
+		 end
+		 
+always_ff @ (posedge Clk)
+		 begin
+		
+		 
+		 if((~openner & (curr_state != correctState)) & (guessChecker[curr_state] == 0))
+		 begin
+		 guessesEasy <= guessesEasy + 1;
+		 guessChecker[curr_state] <= 1; 
+		 end
+		 
+		 if(reset)
+		 begin
+		 guessesEasy <= 0;
+		 guessChecker<= 16'h0000;
+		 end
+		 
+			
+		 
+		 end
+assign guesses = guessesEasy;
 				  							  
 endmodule

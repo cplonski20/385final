@@ -1,6 +1,6 @@
-module  levelMedium ( input logic        levelMedStart, Clk, openner, 
-							input logic [9:0] pickY,
-                       output logic levelMedDone, output logic [3:0] HEXOUT);
+module  levelMedium ( input logic        levelMedStart, Clk, openner, reset,
+							input logic [9:0] pickY, pickLRx,
+                       output logic levelMedDone, close, output logic [3:0] HEXOUT, output logic [2:0] guesses);
 							  
 							  
 							  
@@ -10,8 +10,15 @@ module  levelMedium ( input logic        levelMedStart, Clk, openner,
 			//assign currLevel = 3'b001;
 			logic found;
 			
-			logic [4:0] correctState;
+			logic [4:0] correctState, closeLower, closeAbove;
 			assign HEXOUT = correctState;
+			assign closeLower = correctState - 1;
+			assign closeAbove = correctState + 1;
+			
+			logic [2:0] guessesMedium;
+			logic [31:0] guessChecker;
+			initial guessesMedium = 3'b000;
+			initial guessChecker = 32'h00000000;
 			//implement random generation as input to this module to generate correct state in future!!!!
 			
 			enum logic [4:0] {zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen
@@ -93,9 +100,31 @@ end
 always_comb
 		 begin
 		 
-		 levelMedDone = (curr_state == correctState) & ~openner;
+		 levelMedDone = ((curr_state == correctState) & ~openner & (pickLRx <= 500));
+		 close = ((curr_state == closeLower) | (curr_state == closeAbove));
 		 
 		 
-	 end
+		 end
+		 
+always_ff @ (posedge Clk)
+		 begin
+		
+		 
+		 if((~openner & (curr_state != correctState)) & (guessChecker[curr_state] == 0))
+		 begin
+		 guessesMedium <= guessesMedium + 1;
+		 guessChecker[curr_state] <= 1; 
+		 end
+		 
+		 if(reset)
+		 begin
+		 guessesMedium <= 0;
+		 guessChecker <= 32'h00000000;
+		 end
+		 
+		 end
+assign guesses = guessesMedium;		 
 				  							  
 endmodule
+		 
+		

@@ -1,10 +1,10 @@
 
 State Machine - |LockPicker|controlUnit:control|curr_state
-Name curr_state.mainMenu curr_state.levelMed curr_state.levelEasy curr_state.endScreen 
-curr_state.endScreen 0 0 0 0 
+Name curr_state.endScreen curr_state.levelMed curr_state.levelEasy curr_state.mainMenu 
+curr_state.mainMenu 0 0 0 0 
 curr_state.levelEasy 0 0 1 1 
 curr_state.levelMed 0 1 0 1 
-curr_state.mainMenu 1 0 0 1 
+curr_state.endScreen 1 0 0 1 
 
 State Machine - |LockPicker|adc_qsys:u0|adc_qsys_sdram:sdram|m_next
 Name m_next.010000000 m_next.000010000 m_next.000001000 m_next.000000001 
