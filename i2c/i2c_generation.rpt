@@ -1,0 +1,28 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\Users\jason\OneDrive\Documents\gitLockPicker\385final\i2c.qsys --block-symbol-file --output-directory=C:\Users\jason\OneDrive\Documents\gitLockPicker\385final\i2c --family="MAX 10" --part=10M50DAF484C7G
+Progress: Loading 385final/i2c.qsys
+Progress: Reading input file
+Progress: Adding i2cslave_to_avlmm_bridge_0 [altera_i2cslave_to_avlmm_bridge 18.1]
+Progress: Parameterizing module i2cslave_to_avlmm_bridge_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\Users\jason\OneDrive\Documents\gitLockPicker\385final\i2c.qsys --synthesis=VERILOG --output-directory=C:\Users\jason\OneDrive\Documents\gitLockPicker\385final\i2c\synthesis --family="MAX 10" --part=10M50DAF484C7G
+Progress: Loading 385final/i2c.qsys
+Progress: Reading input file
+Progress: Adding i2cslave_to_avlmm_bridge_0 [altera_i2cslave_to_avlmm_bridge 18.1]
+Progress: Parameterizing module i2cslave_to_avlmm_bridge_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: i2c: Generating i2c "i2c" for QUARTUS_SYNTH
+Info: i2cslave_to_avlmm_bridge_0: "i2c" instantiated altera_i2cslave_to_avlmm_bridge "i2cslave_to_avlmm_bridge_0"
+Info: i2c: Done "i2c" with 2 modules, 11 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

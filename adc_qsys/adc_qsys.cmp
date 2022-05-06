@@ -1,7 +1,12 @@
 	component adc_qsys is
 		port (
+			altpll_sys_areset_conduit_export     : in    std_logic                     := 'X';             -- export
 			clk_clk                              : in    std_logic                     := 'X';             -- clk
 			clock_bridge_sys_out_clk_clk         : out   std_logic;                                        -- clk
+			i2c_0_i2c_serial_sda_in              : in    std_logic                     := 'X';             -- sda_in
+			i2c_0_i2c_serial_scl_in              : in    std_logic                     := 'X';             -- scl_in
+			i2c_0_i2c_serial_sda_oe              : out   std_logic;                                        -- sda_oe
+			i2c_0_i2c_serial_scl_oe              : out   std_logic;                                        -- scl_oe
 			modular_adc_0_command_valid          : in    std_logic                     := 'X';             -- valid
 			modular_adc_0_command_channel        : in    std_logic_vector(4 downto 0)  := (others => 'X'); -- channel
 			modular_adc_0_command_startofpacket  : in    std_logic                     := 'X';             -- startofpacket

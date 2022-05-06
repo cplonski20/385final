@@ -33,12 +33,28 @@
          type = "String";
       }
    }
+   element altpll_sys.pll_slave
+   {
+      datum baseAddress
+      {
+         value = "656";
+         type = "String";
+      }
+   }
    element clk_50
    {
       datum _sortIndex
       {
          value = "0";
          type = "int";
+      }
+   }
+   element clk_50.clk_in_reset
+   {
+      datum _tags
+      {
+         value = "";
+         type = "String";
       }
    }
    element clock_bridge_sys
@@ -55,6 +71,14 @@
       {
          value = "9";
          type = "int";
+      }
+   }
+   element i2c_0.csr
+   {
+      datum baseAddress
+      {
+         value = "576";
+         type = "String";
       }
    }
    element modular_adc_0
@@ -125,7 +149,7 @@
    {
       datum baseAddress
       {
-         value = "32";
+         value = "672";
          type = "String";
       }
    }
@@ -141,7 +165,7 @@
    {
       datum baseAddress
       {
-         value = "56";
+         value = "696";
          type = "String";
       }
    }
@@ -166,12 +190,22 @@
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
+ <interface
+   name="altpll_sys_areset_conduit"
+   internal="altpll_sys.areset_conduit"
+   type="conduit"
+   dir="end" />
  <interface name="clk" internal="clk_50.clk_in" type="clock" dir="end" />
  <interface
    name="clock_bridge_sys_out_clk"
    internal="clock_bridge_sys.out_clk"
    type="clock"
    dir="start" />
+ <interface
+   name="i2c_0_i2c_serial"
+   internal="i2c_0.i2c_serial"
+   type="conduit"
+   dir="end" />
  <interface
    name="modular_adc_0_command"
    internal="modular_adc_0.command"
@@ -367,7 +401,7 @@
   <parameter name="EXPLICIT_CLOCK_RATE" value="0" />
   <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
  </module>
- <module name="i2c_0" kind="altera_avalon_i2c" version="18.1" enabled="0">
+ <module name="i2c_0" kind="altera_avalon_i2c" version="18.1" enabled="1">
   <parameter name="FIFO_DEPTH" value="4" />
   <parameter name="USE_AV_ST" value="0" />
   <parameter name="clockRate" value="50000000" />
@@ -591,7 +625,7 @@
   <parameter name="dataAddrWidth" value="28" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x10' type='altera_avalon_onchip_memory2.s1' /><slave name='sdramPLL.pll_slave' start='0x20' end='0x30' type='altpll.pll_slave' /><slave name='sysid_qsys_0.control_slave' start='0x38' end='0x40' type='altera_avalon_sysid_qsys.control_slave' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x1000' end='0x1800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='sdram.s1' start='0x8000000' end='0xC000000' type='altera_avalon_new_sdram_controller.s1' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x20' type='altera_avalon_onchip_memory2.s1' /><slave name='i2c_0.csr' start='0x240' end='0x280' type='altera_avalon_i2c.csr' /><slave name='altpll_sys.pll_slave' start='0x290' end='0x2A0' type='altpll.pll_slave' /><slave name='sdramPLL.pll_slave' start='0x2A0' end='0x2B0' type='altpll.pll_slave' /><slave name='sysid_qsys_0.control_slave' start='0x2B8' end='0x2C0' type='altera_avalon_sysid_qsys.control_slave' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x1000' end='0x1800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='sdram.s1' start='0x8000000' end='0xC000000' type='altera_avalon_new_sdram_controller.s1' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -630,14 +664,14 @@
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Tiny" />
   <parameter name="instAddrWidth" value="28" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x10' type='altera_avalon_onchip_memory2.s1' /><slave name='sdramPLL.pll_slave' start='0x20' end='0x30' type='altpll.pll_slave' /><slave name='sysid_qsys_0.control_slave' start='0x38' end='0x40' type='altera_avalon_sysid_qsys.control_slave' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x1000' end='0x1800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='sdram.s1' start='0x8000000' end='0xC000000' type='altera_avalon_new_sdram_controller.s1' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x20' type='altera_avalon_onchip_memory2.s1' /><slave name='i2c_0.csr' start='0x240' end='0x280' type='altera_avalon_i2c.csr' /><slave name='sdramPLL.pll_slave' start='0x2A0' end='0x2B0' type='altpll.pll_slave' /><slave name='sysid_qsys_0.control_slave' start='0x2B8' end='0x2C0' type='altera_avalon_sysid_qsys.control_slave' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x1000' end='0x1800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='sdram.s1' start='0x8000000' end='0xC000000' type='altera_avalon_new_sdram_controller.s1' /></address-map>]]></parameter>
   <parameter name="instructionMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="instructionMasterHighPerformanceMapParam" value="" />
   <parameter name="instruction_master_high_performance_paddr_base" value="0" />
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="0" />
+  <parameter name="internalIrqMaskSystemInfo" value="1" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -769,7 +803,7 @@
   <parameter name="initMemContent" value="true" />
   <parameter name="initializationFileName" value="onchip_mem.hex" />
   <parameter name="instanceID" value="NONE" />
-  <parameter name="memorySize" value="16" />
+  <parameter name="memorySize" value="32" />
   <parameter name="readDuringWriteMode" value="DONT_CARE" />
   <parameter name="resetrequest_enabled" value="true" />
   <parameter name="simAllowMRAMContentsFile" value="false" />
@@ -990,7 +1024,16 @@
    start="nios2_gen2_0.data_master"
    end="sysid_qsys_0.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0038" />
+  <parameter name="baseAddress" value="0x02b8" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="i2c_0.csr">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0240" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1008,7 +1051,16 @@
    start="nios2_gen2_0.data_master"
    end="sdramPLL.pll_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="baseAddress" value="0x02a0" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="altpll_sys.pll_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0290" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1035,7 +1087,16 @@
    start="nios2_gen2_0.instruction_master"
    end="sysid_qsys_0.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0038" />
+  <parameter name="baseAddress" value="0x02b8" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.instruction_master"
+   end="i2c_0.csr">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0240" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1053,7 +1114,7 @@
    start="nios2_gen2_0.instruction_master"
    end="sdramPLL.pll_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="baseAddress" value="0x02a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1120,6 +1181,13 @@
   <parameter name="width" value="0" />
  </connection>
  <connection
+   kind="interrupt"
+   version="18.1"
+   start="nios2_gen2_0.irq"
+   end="i2c_0.interrupt_sender">
+  <parameter name="irqNumber" value="0" />
+ </connection>
+ <connection
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
@@ -1184,6 +1252,11 @@
    version="18.1"
    start="nios2_gen2_0.debug_reset_request"
    end="onchip_memory2_0.reset1" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="nios2_gen2_0.debug_reset_request"
+   end="i2c_0.reset_sink" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />

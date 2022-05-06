@@ -1,15 +1,15 @@
-Analysis & Synthesis Status : Successful - Tue May 03 23:49:52 2022
+Analysis & Synthesis Status : Successful - Fri May 06 16:54:01 2022
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : LockPicker
 Top-level Entity Name : LockPicker
 Family : MAX 10
-Total logic elements : 22,484
-    Total combinational functions : 21,571
-    Dedicated logic registers : 2,326
-Total registers : 2326
+Total logic elements : 23,140
+    Total combinational functions : 22,148
+    Dedicated logic registers : 2,642
+Total registers : 2642
 Total pins : 222
 Total virtual pins : 0
-Total memory bits : 1,240,192
+Total memory bits : 1,240,392
 Embedded Multiplier 9-bit elements : 168
 Total PLLs : 2
 UFM blocks : 0

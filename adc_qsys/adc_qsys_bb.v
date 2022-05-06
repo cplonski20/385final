@@ -1,7 +1,12 @@
 
 module adc_qsys (
+	altpll_sys_areset_conduit_export,
 	clk_clk,
 	clock_bridge_sys_out_clk_clk,
+	i2c_0_i2c_serial_sda_in,
+	i2c_0_i2c_serial_scl_in,
+	i2c_0_i2c_serial_sda_oe,
+	i2c_0_i2c_serial_scl_oe,
 	modular_adc_0_command_valid,
 	modular_adc_0_command_channel,
 	modular_adc_0_command_startofpacket,
@@ -24,8 +29,13 @@ module adc_qsys (
 	sdram_wire_we_n,
 	sdrampll_c1_clk);	
 
+	input		altpll_sys_areset_conduit_export;
 	input		clk_clk;
 	output		clock_bridge_sys_out_clk_clk;
+	input		i2c_0_i2c_serial_sda_in;
+	input		i2c_0_i2c_serial_scl_in;
+	output		i2c_0_i2c_serial_sda_oe;
+	output		i2c_0_i2c_serial_scl_oe;
 	input		modular_adc_0_command_valid;
 	input	[4:0]	modular_adc_0_command_channel;
 	input		modular_adc_0_command_startofpacket;

@@ -1,5 +1,5 @@
 module  rotational_motion ( input CLK,
-							input [9:0] centerX,centerY,radius, PickY,
+							input [9:0] centerX,centerY,radius, PickY, //input logic [8:0] cosDATA, sinDATA,
                        output logic [9:0] RotX, RotY);
 
 //the key varibale it takes which is PickY must go from 32 to 479 inclusive

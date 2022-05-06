@@ -1,5 +1,5 @@
 Flow report for LockPicker
-Tue May 03 23:51:54 2022
+Fri May 06 16:56:05 2022
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,20 +40,20 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Tue May 03 23:51:54 2022       ;
+; Flow Status                        ; Successful - Fri May 06 16:56:05 2022       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; LockPicker                                  ;
 ; Top-level Entity Name              ; LockPicker                                  ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50DAF484C7G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 22,307 / 49,760 ( 45 % )                    ;
-;     Total combinational functions  ; 21,593 / 49,760 ( 43 % )                    ;
-;     Dedicated logic registers      ; 2,326 / 49,760 ( 5 % )                      ;
-; Total registers                    ; 2326                                        ;
+; Total logic elements               ; 22,947 / 49,760 ( 46 % )                    ;
+;     Total combinational functions  ; 22,174 / 49,760 ( 45 % )                    ;
+;     Dedicated logic registers      ; 2,642 / 49,760 ( 5 % )                      ;
+; Total registers                    ; 2642                                        ;
 ; Total pins                         ; 222 / 360 ( 62 % )                          ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 1,240,192 / 1,677,312 ( 74 % )              ;
+; Total memory bits                  ; 1,240,392 / 1,677,312 ( 74 % )              ;
 ; Embedded Multiplier 9-bit elements ; 168 / 288 ( 58 % )                          ;
 ; Total PLLs                         ; 2 / 4 ( 50 % )                              ;
 ; UFM blocks                         ; 0 / 1 ( 0 % )                               ;
@@ -66,7 +66,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/03/2022 23:47:39 ;
+; Start date & time ; 05/06/2022 16:51:21 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; LockPicker          ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+------------------------------------------------------------+---------------+-------------+------------------+
 ; Assignment Name                     ; Value                                                      ; Default Value ; Entity Name ; Section Id       ;
 +-------------------------------------+------------------------------------------------------------+---------------+-------------+------------------+
-; COMPILER_SIGNATURE_ID               ; 1098043180700.165163965824248                              ; --            ; --          ; --               ;
+; COMPILER_SIGNATURE_ID               ; 963354560771.165187388007628                               ; --            ; --          ; --               ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Systemverilog Hdl                                          ; --            ; --          ; eda_simulation   ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (SystemVerilog)                            ; <None>        ; --          ; --               ;
 ; EDA_TIME_SCALE                      ; 1 ps                                                       ; --            ; --          ; eda_simulation   ;
@@ -101,7 +101,7 @@ refer to the applicable agreement for further details.
 ; SLD_FILE                            ; adc_qsys/synthesis/adc_qsys.regmap                         ; --            ; --          ; --               ;
 ; SLD_FILE                            ; adc_qsys/synthesis/adc_qsys.debuginfo                      ; --            ; --          ; --               ;
 ; SLD_FILE                            ; db/testerrr_auto_stripped.stp                              ; --            ; --          ; --               ;
-; SLD_INFO                            ; QSYS_NAME adc_qsys HAS_SOPCINFO 1 GENERATION_ID 1649922930 ; --            ; adc_qsys    ; --               ;
+; SLD_INFO                            ; QSYS_NAME adc_qsys HAS_SOPCINFO 1 GENERATION_ID 1651873710 ; --            ; adc_qsys    ; --               ;
 ; SLD_NODE_CREATOR_ID                 ; 110                                                        ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_ENTITY_NAME                ; sld_signaltap                                              ; --            ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT       ; SLD_RAM_BLOCK_TYPE=AUTO                                    ; --            ; --          ; auto_signaltap_0 ;
@@ -140,12 +140,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:02:07     ; 1.0                     ; 5183 MB             ; 00:02:26                           ;
-; Fitter               ; 00:01:24     ; 1.5                     ; 5966 MB             ; 00:02:49                           ;
-; Assembler            ; 00:00:05     ; 1.0                     ; 4772 MB             ; 00:00:05                           ;
-; Timing Analyzer      ; 00:00:16     ; 2.4                     ; 5013 MB             ; 00:00:34                           ;
-; EDA Netlist Writer   ; 00:00:06     ; 1.0                     ; 4859 MB             ; 00:00:06                           ;
-; Total                ; 00:03:58     ; --                      ; --                  ; 00:06:00                           ;
+; Analysis & Synthesis ; 00:02:35     ; 1.0                     ; 5208 MB             ; 00:03:07                           ;
+; Fitter               ; 00:01:25     ; 1.4                     ; 5972 MB             ; 00:02:44                           ;
+; Assembler            ; 00:00:05     ; 1.0                     ; 4775 MB             ; 00:00:05                           ;
+; Timing Analyzer      ; 00:00:16     ; 2.3                     ; 5016 MB             ; 00:00:30                           ;
+; EDA Netlist Writer   ; 00:00:07     ; 1.0                     ; 4874 MB             ; 00:00:07                           ;
+; Total                ; 00:04:28     ; --                      ; --                  ; 00:06:33                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

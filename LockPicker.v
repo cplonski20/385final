@@ -133,7 +133,11 @@ assign reset_n = 1'b1;
         .modular_adc_0_response_data          (response_data),          //                       .data
         .modular_adc_0_response_startofpacket (response_startofpacket), //                       .startofpacket
         .modular_adc_0_response_endofpacket   (response_endofpacket),    //                       .endofpacket
-        .clock_bridge_sys_out_clk_clk         (sys_clk)          // clock_bridge_sys_out_clk.clk
+        .clock_bridge_sys_out_clk_clk         (sys_clk),
+		  .i2c_0_i2c_serial_sda_in(i2c_sda_in),              //          i2c_0_i2c_serial.sda_in
+		  .i2c_0_i2c_serial_scl_in(i2c_scl_in),              //                          .scl_in
+		  .i2c_0_i2c_serial_sda_oe(i2c_sda_oe),              //                          .sda_oe
+	     .i2c_0_i2c_serial_scl_oe(i2c_scl_oe)
     );
 
 	 
@@ -161,6 +165,100 @@ wire response_endofpacket;
 reg [4:0]  cur_adc_ch /* synthesis noprune */;
 reg [11:0] adc_sample_data /* synthesis noprune */;
 reg [12:0] vol /* synthesis noprune */;
+
+
+
+
+//audio start
+
+reg [15:0] ARDUINO_IO_fool;
+assign ARDUINO_IO = ARDUINO_IO_fool;
+
+	wire i2c_scl_in;
+	wire i2c_sda_in;
+	
+	wire i2c_sda_oe;
+	wire i2c_scl_oe;
+	
+	wire LRCLK, SCLK;
+	wire ack;
+	wire [7:0] read_data_output;
+	reg left_audio_bit_sample, right_audio_bit_sample;
+
+	assign LRCLK = ARDUINO_IO_fool[4];
+	assign SCLK = ARDUINO_IO_fool[5];
+
+	
+
+	always @*
+	begin
+		if (LRCLK == 0) begin
+			 ARDUINO_IO_fool[1] = left_audio_bit_sample;
+		end
+		else begin
+			 ARDUINO_IO_fool[1] = right_audio_bit_sample;
+		end
+		ARDUINO_IO_fool[2] = ARDUINO_IO_fool[1];	
+		ARDUINO_IO_fool[15] = i2c_scl_oe ? 1'b0 : 1'bz;
+		ARDUINO_IO_fool[14] = i2c_sda_oe ? 1'b0 : 1'bz;
+		left_audio_bit_sample =lwire;
+		right_audio_bit_sample = rwire;
+		ARDUINO_IO_fool[3] = aud_mclk_ctr[1];
+		currAddy = addyWire;
+	end
+	
+	reg [1:0] aud_mclk_ctr;
+	
+	always @ (posedge MAX10_CLK1_50) begin
+		aud_mclk_ctr <= aud_mclk_ctr + 1;
+	end
+		
+
+	
+	
+	assign i2c_scl_in = ARDUINO_IO_fool[15];
+	assign i2c_sda_in = ARDUINO_IO_fool[14];
+	
+	wire lwire, rwire;
+	
+    wire [31:0] audio_32;
+	 wire [15:0] read_data_shift;
+	 assign read_data_shift = read_data_output >>> 3;
+	 assign audio_32 = { 1'b1, read_data_output, 23'b00000000000000000000000};
+	 
+	 reg_32 left_reg (.Clk(SCLK), .Reset(Reset_h ), .ShiftIn(0), .Load(left_reg_load),
+		.Shift_En(~LRCLK), .D(audio_32), .ShiftOut(lwire), .Data_Out(left_reg_output));
+		
+	 reg_32 right_reg (.Clk(SCLK), .Reset(Reset_h /*check this*/), .ShiftIn(0), .Load(right_reg_load), 
+		.Shift_En(LRCLK), .D(audio_32/*read from text/memory*/), .ShiftOut(rwire), .Data_Out(right_reg_output));
+	
+	
+	
+	reg [11:0] currAddy;
+	always @ (sys_clk)
+	begin
+	if (currAddy == 6962) begin
+			currAddy <= 0;
+		end
+		else begin
+			currAddy <= currAddy + 1;
+		end
+	end
+	
+	
+	wire [11:0] addyWire;
+	
+	frameRAM(.data_In(0), .write_address(0), .read_address(addyWire), .we(0), .Clk(sys_clk), .data_Out(read_data_output));
+
+
+
+///audio end
+
+
+
+
+
+
 
 
 

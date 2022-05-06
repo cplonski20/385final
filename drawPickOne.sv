@@ -5,50 +5,68 @@ module  drawPickOne ( input CLK,
 
 //NOTE WE CREATE A LOT OF LOOK UP TABLE MODULES BY DOING THIS. IS THAT OK?	
 
+
+
+//logic [8:0] cosADDR;
+//logic [9:0] cosDATA;
+//logic [8:0] sinADDR;
+//logic [9:0] sinDATA;
+//
+////NOTE SMALL BUG WHEN ON SPECIFIC LOCATIONS OF PICK moving
+//
+//TrigLUT cosmod(.address(cosADDR),.clock(CLK),.q(cosDATA));
+//TrigLUT sinmod(.address(sinADDR),.clock(CLK),.q(sinDATA));
+//
+//assign cosADDR = (PickY-32) % 448; 
+//assign sinADDR =  ((PickY-32)+ 112) % 448;
+
+
+
+
 logic [9:0] rotateX0,rotateX1,rotateX2,rotateX3, rotateX4,rotateX5,rotateX6,rotateX7,rotateX8,rotateX9;
 logic [9:0] rotateY0,rotateY1,rotateY2,rotateY3, rotateY4,rotateY5,rotateY6,rotateY7,rotateY8,rotateY9;
 	
 	rotational_motion ball0(.CLK(CLK),
-							.centerX(centerX),.centerY(centerY),.radius(radius), .PickY(PickY),
+							.centerX(centerX),.centerY(centerY),.radius(radius), .PickY(PickY), //.cosDATA(cosDATA), .sinDATA(sinDATA),
                        .RotX(rotateX0), .RotY(rotateY0));	
 	
 	rotational_motion ball1(.CLK(CLK),
-							.centerX(centerX),.centerY(centerY),.radius(radius - 10), .PickY(PickY),
+							.centerX(centerX),.centerY(centerY),.radius(radius - 10), .PickY(PickY),// .cosDATA(cosDATA), .sinDATA(sinDATA),
                        .RotX(rotateX1), .RotY(rotateY1));
 	
 	rotational_motion ball2(.CLK(CLK),
-							.centerX(centerX),.centerY(centerY),.radius(radius - 20), .PickY(PickY),
+							.centerX(centerX),.centerY(centerY),.radius(radius - 20), .PickY(PickY),//.cosDATA(cosDATA), .sinDATA(sinDATA),
                        .RotX(rotateX2), .RotY(rotateY2));			  
 	
 	
 	rotational_motion ball3(.CLK(CLK),
-							.centerX(centerX),.centerY(centerY),.radius(radius - 30), .PickY(PickY),
+							.centerX(centerX),.centerY(centerY),.radius(radius - 30), .PickY(PickY),//.cosDATA(cosDATA), .sinDATA(sinDATA),
                        .RotX(rotateX3), .RotY(rotateY3));
 	
 	rotational_motion ball4(.CLK(CLK),
-							.centerX(centerX),.centerY(centerY),.radius(radius - 40), .PickY(PickY),
+							.centerX(centerX),.centerY(centerY),.radius(radius - 40), .PickY(PickY),//.cosDATA(cosDATA), .sinDATA(sinDATA),
                        .RotX(rotateX4), .RotY(rotateY4));
 	
 	rotational_motion ball5(.CLK(CLK),
-							.centerX(centerX),.centerY(centerY),.radius(radius -50), .PickY(PickY),
+							.centerX(centerX),.centerY(centerY),.radius(radius -50), .PickY(PickY),//.cosDATA(cosDATA), .sinDATA(sinDATA),
                        .RotX(rotateX5), .RotY(rotateY5));			  
 	
 	
 	rotational_motion ball6(.CLK(CLK),
-							.centerX(centerX),.centerY(centerY),.radius(radius - 60), .PickY(PickY),
+							.centerX(centerX),.centerY(centerY),.radius(radius - 60), .PickY(PickY),//.cosDATA(cosDATA), .sinDATA(sinDATA),
                        .RotX(rotateX6), .RotY(rotateY6));
 							
 	rotational_motion ball7(.CLK(CLK),
-							.centerX(centerX),.centerY(centerY),.radius(radius - 70), .PickY(PickY),
+							.centerX(centerX),.centerY(centerY),.radius(radius - 70), .PickY(PickY),//.cosDATA(cosDATA), .sinDATA(sinDATA),
                        .RotX(rotateX7), .RotY(rotateY7));
 	
 	rotational_motion ball8(.CLK(CLK),
-							.centerX(centerX),.centerY(centerY),.radius(radius - 80), .PickY(PickY),
+							.centerX(centerX),.centerY(centerY),.radius(radius - 80), .PickY(PickY),//.cosDATA(cosDATA), .sinDATA(sinDATA),
                        .RotX(rotateX8), .RotY(rotateY8));			  
 	
 	
 	rotational_motion ball9(.CLK(CLK),
-							.centerX(centerX),.centerY(centerY),.radius(radius - 90), .PickY(PickY),
+							.centerX(centerX),.centerY(centerY),.radius(radius - 90), .PickY(PickY),//.cosDATA(cosDATA), .sinDATA(sinDATA),
                        .RotX(rotateX9), .RotY(rotateY9));		
 //	
 	int distX0,distX1,distX2,distX3,distX4,distX5,distX6,distX7,distX8,distX9;
