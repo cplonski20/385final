@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(10M50DAF484) Path("C:/Users/jason/OneDrive/Documents/gitLockPicker/385final/output_files/") File("LockPicker.sof") MfrSpec(OpMask(1));
+		Device PartName(10M50DAF484) Path("C:/Users/chazp/OneDrive/Desktop/FinalProject/output_files/") File("LockPicker.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

@@ -1,18 +1,18 @@
-Fitter Status : Successful - Fri May 06 16:55:28 2022
+Fitter Status : Successful - Sat May 07 16:55:18 2022
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : LockPicker
 Top-level Entity Name : LockPicker
 Family : MAX 10
 Device : 10M50DAF484C7G
 Timing Models : Final
-Total logic elements : 22,947 / 49,760 ( 46 % )
-    Total combinational functions : 22,174 / 49,760 ( 45 % )
-    Dedicated logic registers : 2,642 / 49,760 ( 5 % )
-Total registers : 2642
+Total logic elements : 22,954 / 49,760 ( 46 % )
+    Total combinational functions : 22,164 / 49,760 ( 45 % )
+    Dedicated logic registers : 2,644 / 49,760 ( 5 % )
+Total registers : 2644
 Total pins : 222 / 360 ( 62 % )
 Total virtual pins : 0
-Total memory bits : 1,240,392 / 1,677,312 ( 74 % )
-Embedded Multiplier 9-bit elements : 168 / 288 ( 58 % )
+Total memory bits : 1,254,352 / 1,677,312 ( 75 % )
+Embedded Multiplier 9-bit elements : 160 / 288 ( 56 % )
 Total PLLs : 2 / 4 ( 50 % )
 UFM blocks : 0 / 1 ( 0 % )
 ADC blocks : 1 / 2 ( 50 % )

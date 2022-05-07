@@ -186,7 +186,7 @@
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger CRC="BD9F813E" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2022/04/14 20:41:41  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="1" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="BD9F813E" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2022/04/14 20:41:41  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="1" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
           <level enabled="yes" name="condition1" type="basic">
@@ -235,7 +235,7 @@
   <mnemonics/>
   <static_plugin_mnemonics/>
   <global_info>
-    <single attribute="active instance" value="0"/>
+    <single attribute="active instance" value="1"/>
     <single attribute="config widget visible" value="1"/>
     <single attribute="data log widget visible" value="1"/>
     <single attribute="hierarchy widget visible" value="1"/>
@@ -244,7 +244,15 @@
     <single attribute="lock mode" value="0"/>
     <single attribute="sof manager visible" value="1"/>
     <multi attribute="column width" size="23" value="34,34,220,74,68,78,228,96,98,98,88,88,259,101,101,101,101,101,101,101,101,107,78"/>
-    <multi attribute="frame size" size="2" value="1920,1121"/>
+    <multi attribute="frame size" size="2" value="1060,858"/>
     <multi attribute="jtag widget size" size="2" value="479,269"/>
   </global_info>
+  <instance enabled="true" entity_name="sld_signaltap" is_auto_node="yes" name="auto_signaltap_1" source_file="sld_signaltap.vhd">
+    <node_ip_info instance_id="1" mfg_id="110" node_id="0" version="6"/>
+    <position_info>
+      <single attribute="active tab" value="1"/>
+      <single attribute="setup vertical scroll position" value="0"/>
+      <single attribute="setup horizontal scroll position" value="0"/>
+    </position_info>
+  </instance>
 </session>

@@ -105,14 +105,19 @@ always_comb
 		 
 		 
 		 end
-		 
+
+//always_ff @ (posedge levelMedStart)
+//begin
+//		 guessesMedium <= 0;
+//
+//end
+
+
 always_ff @ (posedge Clk)
 		 begin
-		
-		 
-		 if((~openner & (curr_state != correctState)) & (guessChecker[curr_state] == 0))
+		 if( (levelMedStart == 1) & ~openner & (curr_state != correctState) & (guessChecker[curr_state] == 0)) // added levelMedStart
 		 begin
-		 guessesMedium <= guessesMedium + 1;
+		 guessesMedium <= guessesMedium + 1; //try cheatcode
 		 guessChecker[curr_state] <= 1; 
 		 end
 		 

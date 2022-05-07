@@ -77,12 +77,12 @@ colorPalette palette(.drawX(DrawX), .drawY(DrawY), .Clk(CLK), .red(palRed), .gre
 always_comb
 begin		
         if ((DistX*DistX + DistY*DistY) <= (ballSize * ballSize)) 
-            linearBall = 1'b1;
+            linearBall = 1'b0;
         else 
             linearBall = 1'b0;
 				
 		  if ((LRDistX*LRDistX + LRDistY*LRDistY) <= (ballSize * ballSize)) 
-            LRBall = 1'b1;
+            LRBall = 1'b0;
         else 
             LRBall = 1'b0;
 				
@@ -197,7 +197,11 @@ begin
 //			end
 		  
 end
+int saddress;
+logic sdata;
+assign saddress = (DrawX -146) + ((DrawY - 220)* 349);
 
+startimage start(.address(saddress), .clock(CLK), .q(sdata));
 	 
 always_ff @ (posedge VGA_clk)
 begin
@@ -208,9 +212,22 @@ begin
 	
 	3'b000:
 		begin
-			thisRed <= 4'h7 - DrawX[9:3];
-			thisGreen <= 4'h0;
-			thisBlue <= 4'h0;
+//			thisRed <= 4'h7 - DrawX[9:3];
+//			thisGreen <= 4'h0;
+//			thisBlue <= 4'h0;
+			if(DrawX > 146 && DrawX < (146+349) && DrawY > 220 && DrawY < 261 && sdata != 1)
+			begin
+				thisRed <= 4'hF;
+				thisGreen <= 4'hF;
+				thisBlue <= 4'hF;
+			end
+			else
+				begin
+				thisRed <= 4'h0;
+				thisGreen <= 4'h0;
+				thisBlue <= 4'h0;
+				end
+				
 		end
 	
 	
@@ -326,9 +343,18 @@ begin
 	 
 	 3'b111:
 	 begin
-			thisRed <= DrawX - 4'hf;
-			thisGreen <= DrawX - 4'h0;
-			thisBlue <= DrawX - 4'h0;
+			if(guessesMedium < 3 && guessesEasy < 3)
+			begin 
+				thisRed <= DrawX - 4'h0;
+				thisGreen <= DrawX - 4'hf;
+				thisBlue <= DrawX - 4'h0;
+			end
+			else
+			begin
+				thisRed <= DrawX - 4'hf;
+				thisGreen <= DrawX - 4'h0;
+				thisBlue <= DrawX - 4'h0;
+			end
 	end
 	 
 	 default:

@@ -3,7 +3,7 @@ module controlUnit(input logic Clk, reset, levelEasyDone, levelMedDone, start, i
 						output logic levelEasyStart, levelMedStart);
 						
 
-	enum logic [4:0] {mainMenu, levelEasy, levelMed, endScreen}   curr_state, next_state; 
+	enum logic [4:0] {mainMenu, levelEasy, levelMed, endScreen, pauseEM}   curr_state, next_state; 
 
 	//updates flip flop, current state is the only one
     always_ff @ (posedge Clk)  
@@ -26,11 +26,13 @@ module controlUnit(input logic Clk, reset, levelEasyDone, levelMedDone, start, i
 								next_state = levelEasy;
 				
             levelEasy :    if(levelEasyDone)
-								next_state = levelMed;	
+								next_state = pauseEM;	
 								 else if(reset)
 									next_state = mainMenu;
 								 else if(guessesEasy > 2)
 									next_state = endScreen;
+				pauseEM:		
+								next_state = levelMed;
 									
 				levelMed : if(levelMedDone)
 									next_state = endScreen;
@@ -66,6 +68,12 @@ module controlUnit(input logic Clk, reset, levelEasyDone, levelMedDone, start, i
 					 levelMedStart = 1'b1;
 					 levelEasyStart = 1'b0;
 		      end
+			pauseEM:
+				begin
+                screen = 3'b010;
+					 levelEasyStart = 1'b1;
+					 levelMedStart = 1'b0;	
+				end
 			endScreen: 
 		      begin
 					screen = 3'b111;
